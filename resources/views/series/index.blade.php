@@ -7,7 +7,7 @@
                 <thead>
                     <tr>
                         <th scope="col">ID</th>
-                        <th scope="col">Título</th>
+                        <th scope="col">Nome</th>
                         {{-- <th scope="col">Descrição</th> --}}
                         <th scope="col">Ações</th>
                     </tr>
@@ -16,7 +16,7 @@
                     @foreach ($series as $key => $serie)
                         <tr>
                             <th scope="row">{{ '#' }}</th>
-                            <td>{{ $key }}</td>
+                            <td>{{ $serie->nome }}</td>
                             {{-- <td>{{ $serie->description }}</td> --}}
                             <td>
                                 <a href="/series/{{ '#' }}" class="btn btn-info">Detalhes</a>
