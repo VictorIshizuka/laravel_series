@@ -4,12 +4,15 @@ use App\Http\Controllers\SeriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/series');
 });
 
 
-Route::get('/series', [SeriesController::class, 'index']);
+Route::resource('/series', SeriesController::class)->except('show');
 
-Route::get('/series/create', [SeriesController::class, 'create']);
+// Route::controller(SeriesController::class)->group(function () {
+//     Route::get('/series', 'index')->name('series.index');
+//     Route::get('/series/create', 'create')->name('series.create');
+//     Route::post('/series', 'store')->name('series.store');
+// });
 
-Route::post('/series', [SeriesController::class, 'store']);
