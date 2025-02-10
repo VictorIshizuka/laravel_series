@@ -12,7 +12,6 @@
                     <tr>
                         <th scope="col">ID</th>
                         <th scope="col">Nome</th>
-                        {{-- <th scope="col">Descrição</th> --}}
                         <th scope="col">Ações</th>
                     </tr>
                 </thead>
@@ -20,8 +19,11 @@
                     @foreach ($series as $key => $serie)
                         <tr>
                             <th scope="row">{{ '#' }}</th>
-                            <td>{{ $serie->nome }}</td>
-                            {{-- <td>{{ $serie->description }}</td> --}}
+                            <td>
+                                <a href="{{ route('seasons.index', $serie) }}">
+                                    {{ $serie->nome }}
+                                </a>
+                            </td>
                             <td class="d-flex">
                                 <a href="{{ route('series.edit', $serie) }}" class="btn btn-info btn-sm me-1">Editar</a>
                                 <form action="{{ route('series.destroy', $serie) }}" method="POST">
