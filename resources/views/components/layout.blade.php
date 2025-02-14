@@ -11,14 +11,17 @@
 </head>
 
 <body>
-    @auth
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand" href="{{ route('series.index') }}">Controle de séries</a>
+            @auth
             <a class="navbar-brand" href="{{ route('login.logout') }}">Sair</a>
+            @endauth
+            @guest
+            <a class="navbar-brand" href="{{ route('login') }}">Login</a>
+            @endguest
         </div>
     </nav>
-    @endauth
     <div class="container">
         <h2>{{ $title }}</h2>
         @if ($errors->any())

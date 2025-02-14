@@ -21,7 +21,7 @@
                             </td>
                             <td>
                                 <span class="badge bg-secondary">
-                                    {{ $season->episodes->count() }}
+                                    {{$season->watchedCount->count()}} / {{ $season->episodes->count() }}
                                 </span>
                             </td>
                         </tr>
