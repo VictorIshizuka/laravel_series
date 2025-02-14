@@ -1,14 +1,20 @@
 <?php
 
 use App\Http\Controllers\EpisodesController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SeasonsController;
 use App\Http\Controllers\SeriesController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/series');
-});
+})->middleware(\App\Http\Middleware\Autenticador::class);
 
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
+Route::get('/register', [LoginController::class, 'indexRegister'])->name('login.indexRegister');
+Route::post('/register', [LoginController::class, 'register'])->name('login.register');
+Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
 Route::resource('/series', SeriesController::class)->except('show');
 

@@ -11,8 +11,16 @@
 </head>
 
 <body>
+    @auth
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ route('series.index') }}">Controle de séries</a>
+            <a class="navbar-brand" href="{{ route('login.logout') }}">Sair</a>
+        </div>
+    </nav>
+    @endauth
     <div class="container">
-        <h1>{{ $title }}</h1>
+        <h2>{{ $title }}</h2>
         @if ($errors->any())
             <div class="alert alert-danger">
                 @foreach ($errors->all() as $error)
