@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Series;
 use App\Repositories\SeriesRepository;
 use App\Http\Middleware\Autenticador;
+use Illuminate\Support\Facades\Auth;
 
 class SeriesController extends Controller
 {
@@ -31,9 +32,11 @@ class SeriesController extends Controller
         return view('series.create');
     }
 
-    public function store(SeriesFormRequest $request, )
+    public function store(SeriesFormRequest $request,)
     {
         $serie = $this->repository->add($request);
+        \App\Events\SeriesCreated::dispatch($serie->nome, $serie->id, $request->seasonsQty, $request->episodesPerSeason, Auth::user()->email);
+
 
         return redirect()->route('series.index')->with('mensagem.sucesso', "Série '$serie->nome' criada com sucesso!");
     }

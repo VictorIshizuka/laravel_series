@@ -10,6 +10,17 @@ Route::get('/', function () {
     return redirect('/series');
 });
 
+Route::get('/email', function () {
+
+
+    return  new \App\Mail\SeriesCreated(
+        'Serie de teste',
+        3,
+        3,
+        10
+    );
+});
+
 Route::middleware(\App\Http\Middleware\Autenticador::class)->group(function () {
     Route::get('/logout', [LoginController::class, 'logout'])->name('login.logout');
 
@@ -30,4 +41,3 @@ Route::post('/register', [LoginController::class, 'register'])->name('login.regi
 //     Route::get('/series/create', 'create')->name('series.create');
 //     Route::post('/series', 'store')->name('series.store');
 // });
-
