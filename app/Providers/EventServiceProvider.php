@@ -12,6 +12,9 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\EmailUserAboutSeriesCreated::class,
              \App\Listeners\LogSeriesCreated::class
         ],
+        \App\Events\DeleteSeries::class => [
+            \App\Listeners\DeleteImageListener::class
+        ]
     ];
     /**
      * Register services.

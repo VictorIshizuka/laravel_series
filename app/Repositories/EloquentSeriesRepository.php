@@ -18,6 +18,7 @@ class EloquentSeriesRepository implements SeriesRepository
             $nomeSerie = $request->input('nome');
             $serie = new Series();
             $serie->nome = $nomeSerie;
+            $serie->cover = $request->coverPath ?? 'no-image.jpeg';
             $serie->save();
 
             $seasons = [];

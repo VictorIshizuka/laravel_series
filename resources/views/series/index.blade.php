@@ -1,4 +1,5 @@
 <x-layout title="Séries">
+
     @auth
         <a href="/series/create" class="btn btn-dark mb-2">Nova série</a>
     @endauth
@@ -9,7 +10,7 @@
     @endisset
     <div class="row">
         <div class="col">
-            <table class="table table-hover">
+            <table class="table table-hover table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Nome</th>
@@ -20,14 +21,17 @@
                 </thead>
                 <tbody>
                     @foreach ($series as $key => $serie)
-                        <tr>
-                            <td>
+                        <tr  >
+                            <td style="height: 100px;"  >
+                                <img src="{{ $serie->cover ? asset('storage/' . $serie->cover) : asset('storage/series_cover/no-image.jpeg') }}"
+                                 class="img-thumbnail me-1" style="height: 100px; width: 100px" alt="{{ $serie->nome }}">
+
                                 <a href="{{ route('seasons.index', $serie) }}">
                                     {{ $serie->nome }}
                                 </a>
                             </td>
                             @auth
-                            <td class="d-flex">
+                            <td class="d-flex" style="height: 100px;">
                                 <a href="{{ route('series.edit', $serie) }}" class="btn btn-info btn-sm me-1">Editar</a>
                                 <form action="{{ route('series.destroy', $serie) }}" method="POST">
                                     @csrf

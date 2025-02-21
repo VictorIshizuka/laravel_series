@@ -34,6 +34,8 @@ class SeriesController extends Controller
 
     public function store(SeriesFormRequest $request,)
     {
+        $coverPath = $request->file('cover')->store('series_cover', 'public');
+        $request['coverPath'] = $coverPath;
         $serie = $this->repository->add($request);
         \App\Events\SeriesCreated::dispatch($serie->nome, $serie->id, $request->seasonsQty, $request->episodesPerSeason, Auth::user()->email);
 
@@ -43,20 +45,39 @@ class SeriesController extends Controller
 
     public function edit(Series $series)
     {
-        return view('series.edit')->with('nome', $series->nome);
+        return view('series.edit')->with('series', $series);
     }
 
     public function update(Series $series, SeriesFormRequest $request)
     {
-        $series->fill($request->all());
-        $series->save();
+
+        if ($request->hasFile('cover')) {
+
+            if ($series->cover && $series->cover !== 'no-image.jpeg') {
+                event(new \App\Events\DeleteSeries($series->cover));
+            }
+
+
+            $coverPath = $request->file('cover')->store('series_cover', 'public');
+            $data['cover'] = $coverPath;
+        } else {
+
+            $data['cover'] = $series->cover ?? 'no-image.jpeg';
+        }
+
+        $series->update($data);
 
         return redirect()->route('series.index')->with('mensagem.sucesso', "Série '$series->nome' atualizada com sucesso!");
     }
 
     public function destroy(Series $series, Request $request)
     {
-        $series->delete();
+        if ($series->id) {
+
+            event(new \App\Events\DeleteSeries($series->cover));
+            $series->delete();
+        }
+
 
         return redirect()->route('series.index')->with('mensagem.sucesso', "Série '$series->nome' excluída com sucesso!");
     }

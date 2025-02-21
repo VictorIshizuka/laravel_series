@@ -1,5 +1,10 @@
 <x-layout title="Temporadas da série {!! $serie->nome !!} ">
-
+    <div class="text-center">
+        <img src="{{asset('storage/'.$serie->cover)}}"
+             alt="{{$serie->nome}}"
+             class="img-fluid"
+             style="height:200px">
+    </div>
     <div class="row">
         <div class="col">
             <table class="table table-hover">

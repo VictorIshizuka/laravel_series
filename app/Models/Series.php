@@ -10,7 +10,7 @@ class Series extends Model
     protected $table = 'series';
 
     protected $fillable = [
-        'nome',
+        'nome', 'cover'
     ];
 
 
