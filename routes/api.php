@@ -9,3 +9,11 @@ Route::get('/user', function (Request $request) {
 
 
 Route::apiResource('/series', \App\Http\Controllers\Api\SeriesController::class);
+
+Route::get('/series/{series}/seasons', fn(\App\Models\Series $series) => $series->seasons);
+Route::get('/series/{series}/episodes', fn(\App\Models\Series $series) => $series->episodes);
+Route::patch('/episode/{episode}', function (\App\Models\Episode $episode, Request $request) {
+    $episode->watched = $request['watched'];
+    $episode->save();
+    return $episode;
+});
